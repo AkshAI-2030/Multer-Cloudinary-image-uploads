@@ -1,7 +1,7 @@
 const isFilePresent = (req, res, next) => {
   if (!req.files) {
     return res
-      .status(500)
+      .status(400)
       .json({ description: "File not present in the request body" });
   }
   if (Array.isArray(req.files) && req.files.length === 0) {

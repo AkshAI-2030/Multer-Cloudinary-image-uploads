@@ -1,7 +1,6 @@
 const sharp = require("sharp");
 const fs = require("fs");
 const path = require("path");
-const { or } = require("sequelize");
 
 const imageResize = async (req, res, next) => {
   try {
@@ -12,22 +11,22 @@ const imageResize = async (req, res, next) => {
       "resized-" + parsedPath.name + ".jpeg"
     );
 
-    await sharp(originalFilePath)
+    await sharp(originalFilePath) //check sharp documentation for more understanding.
       .resize({ width: 1500 })
       .jpeg({
-        quality: 100,
-        mozjpeg: true,
+        quality: 100, // range from 0 to 100
+        mozjpeg: true, //quality in maintained
         chromaSubsampling: "4:4:4",
         trellisQuantisation: true,
         overshootDeringing: true,
         optimiseScans: true,
-        progressive: true,
+        progressive: true, // loading speed.
       })
       .toFile(outputFilePath);
 
     req.files[0].path = outputFilePath;
     req.originalFilePath = originalFilePath;
-    next();
+    next(); //next to another middleware
   } catch (error) {
     return res.status(500).json({ error: { description: error.message } });
   }

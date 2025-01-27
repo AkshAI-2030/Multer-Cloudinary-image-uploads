@@ -1,14 +1,11 @@
-const  express = require("express");
-const  { fileRouter } = require("./src/router/fileRouter.js");
-const  fs = require("fs");
-const  path = require("path");
-const  cors = require("cors");
+const express = require("express");
+const { fileRouter } = require("./src/router/fileRouter.js");
+const fs = require("fs");
+const path = require("path");
+const cors = require("cors");
 
 const app = express();
-
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+app.use(express.json());
 
 const uploadDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadDir)) {
